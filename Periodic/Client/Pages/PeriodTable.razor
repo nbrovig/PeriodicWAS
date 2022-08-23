@@ -7,31 +7,11 @@
 <PageTitle>The Table of elements</PageTitle>
 
 <h1>The Table of elements</h1>
-<button @onclick="@(()=>modal.Show<FetchData>("Modal Popup Example"))" class="btn btn-primary">View</button>
-<div @onclick="@(() => showElement("name", 100))" class="card">
-    <div class="card-body">
-        <p class="card-text">Testeren</p>
-    </div>
-</div>
 
 @{
     var elements = ElementService.Elements;
     if (elements.Count != 0)
     {
-        for (var i = 0; i < 3; i++)
-        {
-            Element element = elements[i];
-            int atomicNumber = i + 1;
-            string name = elements[i].ElementName;
-            <div class="card text-center" @onclick="@(() => showElement(name, atomicNumber))">
-                <div class='card-body'>
-                    <p class='card-text'>@elements[i].AtomicNumber</p>
-                    <h2 class='card-title'>@elements[i].Symbol</h2>
-                    <p class='card-text text-muted'>@elements[i].ElementName</p>
-                </div>
-            </div>
-        }
-
         for (var i = 0; i < 3; i++)
         {
             @generateCard(elements[i])   
@@ -63,7 +43,7 @@
         for (var i = 0; i < elements.Count; i++)
         {
             //add card
-            card = "<div class='card text-center' onclick='showModal'>";
+            card = "<div class='card text-center'>";
             card += "<div class='card-body'>";
             card += "<p class='card-text'>" + @elements[i].AtomicNumber + "</p>";
             card += "<h2 class='card-title'>" + @elements[i].Symbol + "</h2>";
@@ -132,22 +112,12 @@
 
     [CascadingParameter] public IModalService Modal { get; set; } = default!;
 
-    void showModal()
-    {
-        var options = new ModalOptions { Size = ModalSize.ExtraLarge };
-        var parameters = new ModalParameters
-            {
-            { nameof(FetchData.AtomicNumber), 88}
-            };
-        Modal.Show<FetchData>($"Jøssda", parameters);
-    }
-
-    public void showElement(string name, int v)
+    public void showElement(string name, int no)
     {
         var options = new ModalOptions { Size = ModalSize.Large, Position = ModalPosition.Middle };
         var parameters = new ModalParameters
             {
-            { nameof(FetchData.AtomicNumber), v}
+            { nameof(FetchData.AtomicNumber), no}
             };
         Modal.Show<FetchData>(name, parameters, options);
     }
