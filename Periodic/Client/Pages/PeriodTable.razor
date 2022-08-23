@@ -1,0 +1,116 @@
+﻿@page "/periodictable"
+@using Periodic.Shared.Models
+@inject HttpClient Http
+@inject IElementService ElementService
+@inject IModalService modal
+
+<PageTitle>The Table of elements</PageTitle>
+
+<h1>The Table of elements</h1>
+<button @onclick="@(()=>modal.Show<FetchData>("Modal Popup Example"))" class="btn btn-primary">View</button>
+<button @onclick="showModal" class="btn btn-primary">View2</button>
+
+@{
+    var elements = ElementService.Elements;
+    if (elements.Count != 0)
+    {
+        @((MarkupString)createPeriodicTable(elements))
+    }
+}
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await ElementService.GetElements();
+    }
+
+    public string createPeriodicTable(List<Element>? elements)
+    {
+        string html = "<div class='card-group'>";
+        string lhtml = "";
+        string ahtml = "";
+        string card = "";
+        int cwidth = 5;
+
+        if (elements is null)
+        {
+            throw new ArgumentNullException(nameof(elements));
+        }
+        for (var i = 0; i < elements.Count; i++)
+        {
+            //add card
+            card = "<div class='card text-center' + @onclick='showModal'>";
+            card += "<div class='card-body'>";
+            card += "<p class='card-text'>" + @elements[i].AtomicNumber + "</p>";
+            card += "<h2 class='card-title'>" + @elements[i].Symbol + "</h2>";
+            card += "<p class='card-text text-muted'>" + @elements[i].ElementName + "</p>";
+            card += "</div>";
+            card += "</div>";
+
+            if (i > 55 && i <= 70)
+            {
+                lhtml += card;  //Lanthanides
+            }
+            else if (i > 87 && i <= 102)
+            {
+                ahtml += card;  //Actinides
+            }
+            else
+            {
+                html += card;
+            }
+
+            switch (i)
+            {
+                case 0:
+                    //Add spacing 16
+                    html += "<div class='card text-center hid' style='width: " + cwidth * 16 + "rem'><div class='card-body'></div></div>";
+                    break;
+                case 3:
+                case 11:
+                    //Add spacing 10
+                    html += "<div class='card text-center hid' style='width: " + cwidth * 10 + "rem'><div class='card-body'></div></div>";
+                    break;
+                case 1:
+                case 9:
+                case 17:
+                case 35:
+                case 53:
+                case 85:
+                    //Add new cardgroup
+                    html += "</div><div class='card-group'>";
+                    break;
+                case 56:
+                    //Add Lanthanides, spacing 1
+                    html += "<div class='card text-center hid' style='width: " + cwidth * 1 + "rem'><div class='card-body'><h5 style='margin-top:1.4rem'>57-71</h5></div></div>";
+                    break;
+                case 88:
+                    //Add Actinides, spacing 1
+                    html += "<div class='card text-center hid' style='width: " + cwidth * 1 + "rem'><div class='card-body'><h5 style='margin-top:1.4rem'>89-103</h5></div></div>";
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        html += "</div>";
+        //Adding Lanthanides, Actanides and spacing from table
+        html += "<div class='card-group' style='margin-top: 20px'><div class='card text-center hid' style='width: " + cwidth * 18 + "rem'><div class='card-body'></div></div></div>";
+        html += "<div class='card-group'><div class='card text-center hid' style='width: " + cwidth * 2 + "rem'><div class='card-body'></div></div>";
+        html += lhtml + "</div>";
+        html += "<div class='card-group'><div class='card text-center hid' style='width: " + cwidth * 2 + "rem'><div class='card-body'></div></div>";
+        html += ahtml + "</div>";
+
+        //Modal test
+        //html += <button @onclick='@(()=>modal.Show<FetchData>("Modal Popup Example"))'></button>
+        return html;
+    }
+
+    [CascadingParameter] public IModalService Modal { get; set; } = default!;
+
+    void showModal()
+    {
+        Modal.Show<PeriodTable>("The table");
+    }
+
+    }
