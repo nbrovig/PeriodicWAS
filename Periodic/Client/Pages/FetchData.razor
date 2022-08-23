@@ -1,19 +1,20 @@
 ﻿@page "/fetchdata"
 @using Periodic.Shared
 @inject HttpClient Http
+@inject IModalService modal
 
 <PageTitle>Weather forecast</PageTitle>
 
 <h1>Weather forecast</h1>
 
-<p>This component demonstrates fetching data from the server.</p>
+<p>This component demonstrates fetching data from the server. And this is a very long text to see if the size is bigger</p>
 
 @if (forecasts == null)
 {
     <p><em>Loading...</em></p>
 }
 else
-{
+{   <p>@AtomicNumber</p>
     <table class="table">
         <thead>
             <tr>
@@ -44,4 +45,8 @@ else
     {
         forecasts = await Http.GetFromJsonAsync<WeatherForecast[]>("WeatherForecast");
     }
+
+    [CascadingParameter] BlazoredModalInstance BlazoredModal { get; set; } = default!;
+
+    [Parameter] public int? AtomicNumber { get; set; }
 }

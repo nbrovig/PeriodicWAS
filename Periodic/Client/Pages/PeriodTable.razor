@@ -8,12 +8,36 @@
 
 <h1>The Table of elements</h1>
 <button @onclick="@(()=>modal.Show<FetchData>("Modal Popup Example"))" class="btn btn-primary">View</button>
-<button @onclick="showModal" class="btn btn-primary">View2</button>
+<div @onclick="@(() => showElement("name", 100))" class="card">
+    <div class="card-body">
+        <p class="card-text">Testeren</p>
+    </div>
+</div>
 
 @{
     var elements = ElementService.Elements;
     if (elements.Count != 0)
     {
+        for (var i = 0; i < 3; i++)
+        {
+            Element element = elements[i];
+            int atomicNumber = i + 1;
+            string name = elements[i].ElementName;
+            <div class="card text-center" @onclick="@(() => showElement(name, atomicNumber))">
+                <div class='card-body'>
+                    <p class='card-text'>@elements[i].AtomicNumber</p>
+                    <h2 class='card-title'>@elements[i].Symbol</h2>
+                    <p class='card-text text-muted'>@elements[i].ElementName</p>
+                </div>
+            </div>
+        }
+
+        for (var i = 0; i < 3; i++)
+        {
+            @generateCard(elements[i])   
+        }
+
+
         @((MarkupString)createPeriodicTable(elements))
     }
 }
@@ -39,7 +63,7 @@
         for (var i = 0; i < elements.Count; i++)
         {
             //add card
-            card = "<div class='card text-center' + @onclick='showModal'>";
+            card = "<div class='card text-center' onclick='showModal'>";
             card += "<div class='card-body'>";
             card += "<p class='card-text'>" + @elements[i].AtomicNumber + "</p>";
             card += "<h2 class='card-title'>" + @elements[i].Symbol + "</h2>";
@@ -110,7 +134,35 @@
 
     void showModal()
     {
-        Modal.Show<PeriodTable>("The table");
+        var options = new ModalOptions { Size = ModalSize.ExtraLarge };
+        var parameters = new ModalParameters
+            {
+            { nameof(FetchData.AtomicNumber), 88}
+            };
+        Modal.Show<FetchData>($"Jøssda", parameters);
     }
 
+    public void showElement(string name, int v)
+    {
+        var options = new ModalOptions { Size = ModalSize.Large, Position = ModalPosition.Middle };
+        var parameters = new ModalParameters
+            {
+            { nameof(FetchData.AtomicNumber), v}
+            };
+        Modal.Show<FetchData>(name, parameters, options);
     }
+
+    RenderFragment generateCard(Element element)
+    {
+        return
+    @<div class="card text-center" @onclick="@(() => showElement(@element.ElementName, (int)@element.AtomicNumber))">
+        <div class="card-body">
+            <p class="card-text">@element.AtomicNumber</p>
+            <h2 class="card-title">@element.Symbol</h2>
+            <p class="card-text text-muted">@element.ElementName</p>
+        </div>
+    </div>;
+    }
+
+
+}
