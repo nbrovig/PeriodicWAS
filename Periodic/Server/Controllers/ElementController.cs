@@ -12,7 +12,7 @@ namespace Periodic.Server.Controllers
     public class ElementController : ControllerBase
     {
         [HttpGet]
-        public async Task<ActionResult<List<Element>>> GetElements()
+        public ActionResult<List<Element>> GetElements()
         {
             var file = "..\\Shared\\Files\\Elements.csv";
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
