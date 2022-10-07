@@ -4,6 +4,5 @@
     {
         List<Element> Elements { get; set; }
         Task GetElements();
-        Task GetElementsNew();
     }
 }

@@ -38,7 +38,7 @@ namespace Periodic.Shared.Models
         public int? NumberofValence { get; set; }
     }
 
-    public class allElements
+    public class AllElements
     {
         public string allElementsListed = @"
 AtomicNumber;ElementName;Symbol;AtomicMass;NumberofNeutrons;NumberofProtons;NumberofElectrons;Period;Group;Phase;Radioactive;Natural;Metal;Nonmetal;Metalloid;Type;AtomicRadius;Electronegativity;FirstIonization;Density;MeltingPoint;BoilingPoint;NumberOfIsotopes;Discoverer;Year;SpecificHeat;NumberofShells;NumberofValence
