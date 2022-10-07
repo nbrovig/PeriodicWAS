@@ -7,11 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="wwwroot\Elements.csv" />
+    <Content Remove="wwwroot\Elements.txt" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="wwwroot\Elements.csv" />
+    <EmbeddedResource Include="wwwroot\Elements.txt" />
   </ItemGroup>
 
   <ItemGroup>
