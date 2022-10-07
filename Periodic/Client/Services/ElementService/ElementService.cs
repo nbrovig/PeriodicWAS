@@ -17,7 +17,7 @@ namespace Periodic.Client.Services.ElementService
             try
             {
 
-                var result = await _http.GetFromJsonAsync<List<Element>>("api/element");
+                var result = await _http.GetFromJsonAsync<List<Element>>("api/elementNew");
                 if (result != null)
                 {
                     Elements = result;
@@ -35,7 +35,7 @@ namespace Periodic.Client.Services.ElementService
             try
             {
 
-                var result = await _http.GetFromJsonAsync<List<string[]>>("api/elementNew");
+                var result = await _http.GetFromJsonAsync<List<string[]>>("api/element");
                 if (result != null)
                 {
                     Elstring = result;
