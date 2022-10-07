@@ -30,17 +30,21 @@ namespace Periodic.Server.Controllers
         [HttpGet]
         public ActionResult<List<string[]>> GetElementsNew()
         {
-            var csv = new List<string[]>(); // or, List<YourClass>
-            var lines = System.IO.File.ReadAllLines("..\\Shared\\Files\\Elements.csv");
-            foreach (string line in lines)
-            {
-                csv.Add(line.Split(';')); // or, populate YourClass
+            //var csv = new List<string[]>(); // or, List<YourClass>
+            //var lines = System.IO.File.ReadAllLines("..\\Shared\\Files\\Elements.csv");
+            //foreach (string line in lines)
+            //{
+              //  csv.Add(line.Split(';')); // or, populate YourClass
                 //JsonSerializer.SerializeToElement<Element>(line);
                 //var serializer = new JavaScriptSerializer();
                 //var serializedResult = serializer.Serialize(RegisteredUsers);
                 //string json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(csv);
-            }
-            return csv;
+            //}
+            //return csv;
+            var t = "a,b,c,d";
+            var csv2 = new List<string[]>();
+            csv2.Add(t.Split(','));
+            return csv2;
         }
     }
 }
