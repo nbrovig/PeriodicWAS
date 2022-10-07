@@ -16,7 +16,8 @@ namespace Periodic.Server.Controllers
         [HttpGet]
         public ActionResult<List<Element>> GetElements()
         {
-            var file = "..\\Shared\\Files\\Elements.csv";
+            //var file = "..\\Shared\\Files\\Elements.csv";
+            var file = "Elements.csv";
             var config = new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 Delimiter = ";",
