@@ -5,12 +5,14 @@ using CsvHelper;
 using CsvHelper.Configuration;
 using System.Globalization;
 
+
 namespace Periodic.Server.Controllers
 {
-    [Route("api/[controller]")]
+    
     [ApiController]
     public class ElementController : ControllerBase
     {
+        [Route("api/element")]
         [HttpGet]
         public ActionResult<List<Element>> GetElements()
         {
@@ -22,6 +24,23 @@ namespace Periodic.Server.Controllers
             using var reader = new StreamReader(file);
             using var csv = new CsvReader(reader, config);
             return Ok(csv.GetRecords<Element>().ToArray());
+        }
+
+        [Route("api/elementNew")]
+        [HttpGet]
+        public ActionResult<List<string[]>> GetElementsNew()
+        {
+            var csv = new List<string[]>(); // or, List<YourClass>
+            var lines = System.IO.File.ReadAllLines("..\\Shared\\Files\\Elements.csv");
+            foreach (string line in lines)
+            {
+                csv.Add(line.Split(';')); // or, populate YourClass
+                //JsonSerializer.SerializeToElement<Element>(line);
+                //var serializer = new JavaScriptSerializer();
+                //var serializedResult = serializer.Serialize(RegisteredUsers);
+                //string json = new System.Web.Script.Serialization.JavaScriptSerializer().Serialize(csv);
+            }
+            return csv;
         }
     }
 }

@@ -10,14 +10,40 @@ namespace Periodic.Client.Services.ElementService
         {
             _http = http;
         }
-        public List<Element> Elements { get ; set; } = new List<Element>();
+        public List<Element> Elements { get; set; } = new List<Element>();
 
         public async Task GetElements()
         {
-            var result = await _http.GetFromJsonAsync<List<Element>>("api/element");
-            if (result != null)
+            try
             {
-                Elements = result;
+
+                var result = await _http.GetFromJsonAsync<List<Element>>("api/element");
+                if (result != null)
+                {
+                    Elements = result;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+        }
+
+        public List<string[]> Elstring { get; set; } = new List<string[]>();
+        public async Task GetElementsNew()
+        {
+            try
+            {
+
+                var result = await _http.GetFromJsonAsync<List<string[]>>("api/elementNew");
+                if (result != null)
+                {
+                    Elstring = result;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
             }
         }
     }
