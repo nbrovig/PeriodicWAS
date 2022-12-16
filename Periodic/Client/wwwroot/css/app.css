@@ -75,6 +75,13 @@ a, .btn-link {
     background-color: #ccc;
 }
 
+.card:hover {
+    background-color: #fff;
+    transform: scale(1.2);
+    transition-duration: .6s;
+    z-index: 1000;
+}
+
 .card-body {
     padding: 0.3rem
 }
