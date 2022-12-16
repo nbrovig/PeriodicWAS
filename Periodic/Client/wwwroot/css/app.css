@@ -75,7 +75,7 @@ a, .btn-link {
     background-color: #ccc;
 }
 
-.card:hover {
+.card:not(.hid):hover {
     background-color: #fff;
     transform: scale(1.2);
     transition-duration: .6s;
@@ -100,15 +100,15 @@ a, .btn-link {
     border-width: 0;
     border: 0px !important;
     background-color: #666;
-    cursor: default!important;
+    cursor: default !important;
 }
 
 .card-group > .card:not(:last-child) {
-    border-radius: 0.25rem!important;
+    border-radius: 0.25rem !important;
 }
 
 .card-group > .card + .card {
-    border-radius:0.25rem!important;
+    border-radius: 0.25rem !important;
     border-left: 1px solid rgba(0,0,0,.125);
 }
 
