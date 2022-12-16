@@ -79,7 +79,7 @@ a, .btn-link {
     background-color: #fff;
     transform: scale(1.2);
     transition-duration: .6s;
-    z-index: 1000;
+    z-index: 99;
 }
 
 .card-body {
